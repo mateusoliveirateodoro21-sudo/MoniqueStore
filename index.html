@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-sedA7qIWm9eUaYFoU7M5SGoWOUjh46AtJZu88KBv0jA=' 'sha256-H8fAdR33ReiJS5tlkR3Gw7akTtPYuOUPU/0LSRhTmE0=' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; connect-src https://*.analytics.google.com https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-2LC7Z88XGG"></script>
 <script>
@@ -13,6 +14,7 @@
   gtag('config', 'G-2LC7Z88XGG');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Monique Store | Catálogo Fitness e Lingerie</title>
 <meta name="description" content="Monique Store: roupas fitness femininas e lingerie em Franca e região. Veja o catálogo, escolha o tamanho e peça pelo WhatsApp.">
 <link rel="canonical" href="https://usemoniquestore.com.br/">
@@ -247,6 +249,34 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .cb-no{background:transparent;color:var(--text);border:1px solid var(--border)}
 .cb-yes{background:var(--accent);color:var(--accent-text);border:1px solid var(--accent)}
 .cookie button:focus-visible,.cookie a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+.viewbar{display:flex;align-items:center;justify-content:center;gap:14px;margin:0 0 18px}
+.viewbar .count{margin:0}
+.vtog{display:none;gap:6px}
+.vbtn{width:40px;height:40px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+.vbtn svg{width:20px;height:20px}
+.vbtn[aria-pressed="true"]{background:var(--accent);color:var(--accent-text);border-color:var(--accent)}
+.vbtn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+@media (max-width:640px){
+  .vtog{display:flex}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .grid.um{grid-template-columns:1fr;gap:20px}
+  .grid:not(.um) .card{border-radius:12px}
+  .grid:not(.um) .info{padding:10px;gap:4px}
+  .grid:not(.um) .tag{font-size:.65rem}
+  .grid:not(.um) .info h3{font-size:.9rem;line-height:1.25}
+  .grid:not(.um) .meta{font-size:.75rem}
+  .grid:not(.um) .price{font-size:1rem}
+  .grid:not(.um) .btn{font-size:.82rem;padding:10px 6px;min-height:42px}
+  .grid:not(.um) .row2{flex-direction:column;gap:6px}
+  .grid:not(.um) .row2>*{flex:0 0 auto}
+  .grid:not(.um) .addbag,.grid:not(.um) .share{font-size:.78rem;padding:8px 6px;min-height:38px;gap:6px}
+  .grid:not(.um) .sz{flex-wrap:wrap;gap:4px;font-size:.78rem}
+  .grid:not(.um) .sz select{flex:1 1 100%;min-height:38px;font-size:.82rem}
+  .grid:not(.um) .cnt,.grid:not(.um) .new,.grid:not(.um) .soldout{font-size:.62rem;padding:3px 8px}
+  .grid:not(.um) .medlink{font-size:.72rem}
+  .grid:not(.um) .btn,.grid:not(.um) .addbag,.grid:not(.um) .share{text-align:center;line-height:1.2}
+}
 </style>
 </head>
 <body>
@@ -262,8 +292,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <a href="#medidas">Medidas</a>
       <a href="#como-comprar">Como comprar</a>
       <a href="#contato">Contato</a>
-      <a class="pill" id="topIg" href="#" target="_blank" rel="noopener">Instagram</a>
-      <a class="pill" id="topWa" href="#" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="pill" id="topIg" href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a class="pill" id="topWa" href="#" target="_blank" rel="noopener noreferrer">WhatsApp</a>
     </nav>
   </div>
 </header>
@@ -282,7 +312,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <button class="tab" data-cat="lingerie" aria-pressed="false">Lingerie</button>
     </div>
     <div class="sizes" id="sizes" role="group" aria-label="Filtrar por tamanho"></div>
-    <p class="count" id="count" aria-live="polite"></p>
+    <div class="viewbar"><p class="count" id="count" aria-live="polite"></p><div class="vtog" role="group" aria-label="Quantas peças por linha"><button type="button" class="vbtn" data-v="2" aria-pressed="true" aria-label="Duas peças lado a lado"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4" width="7" height="16" rx="1.5"/><rect x="13.5" y="4" width="7" height="16" rx="1.5"/></svg></button><button type="button" class="vbtn" data-v="1" aria-pressed="false" aria-label="Uma peça por vez"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="5.5" y="4" width="13" height="16" rx="1.5"/></svg></button></div></div>
     <div class="grid" id="grid"></div>
   </div>
 
@@ -315,7 +345,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <div class="contact">
       <h2 class="sec" id="contato">Contato</h2>
       <p id="contact"></p>
-      <p><a class="btn cta" id="aboutWa" href="#" target="_blank" rel="noopener">Chamar no WhatsApp</a></p>
+      <p><a class="btn cta" id="aboutWa" href="#" target="_blank" rel="noopener noreferrer">Chamar no WhatsApp</a></p>
     </div>
   </div>
 </section>
@@ -386,7 +416,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <div class="bag-f" id="bagFoot" hidden>
       <div class="tot" id="bagTot"><span>Total</span><span id="bagTotV"></span></div>
       <p class="pagto">Formas de pagamento: PIX, cartão de débito e cartão de crédito (parcelado em até 4x sem juros).</p>
-      <a class="btn" id="bagSend" href="#" target="_blank" rel="noopener">Enviar pedido pelo WhatsApp</a>
+      <a class="btn" id="bagSend" href="#" target="_blank" rel="noopener noreferrer">Enviar pedido pelo WhatsApp</a>
       <button type="button" class="clear" id="bagClear">Esvaziar sacola</button>
     </div>
   </div>
@@ -399,9 +429,11 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   <button class="lbtn lnext" id="lbNext" aria-label="Próxima foto">›</button>
   <div class="lcnt" id="lbCnt"></div>
 </div>
-<a class="fab" id="fab" href="#" target="_blank" rel="noopener"><span aria-hidden="true">💬</span> Fale com a gente</a>
+<a class="fab" id="fab" href="#" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">💬</span> Fale com a gente</a>
 
 <script>
+/* proteção contra o site ser aberto dentro de outro site (clickjacking) */
+if(window.top !== window.self){ try{ window.top.location.href = window.self.location.href; }catch(err){ document.documentElement.hidden = true; } }
 /* ===== CONFIGURAÇÃO: edite só esta parte ===== */
 var CONFIG = {
   loja: "Monique Store",
@@ -475,7 +507,7 @@ if(CONFIG.analyticsId){
 
 function imgsHtml(p){
   var l = p.imgs || [p.img];
-  var h = '<img src="' + esc(l[0]) + '" alt="' + esc(p.nome) + '" loading="lazy" onerror="this.remove()">';
+  var h = '<img src="' + esc(l[0]) + '" alt="' + esc(p.nome) + '" loading="lazy">';
   if(l.length > 1) h += '<span class="cnt">' + l.length + ' fotos</span>';
   return h;
 }
@@ -539,9 +571,9 @@ function render(cat){
       '<h3>' + esc(p.nome) + '</h3>' +
       '<div class="meta">' + (p.ref ? 'Ref. ' + esc(p.ref) + '<br>' : '') + (tamTxt(p) ? esc(tamTxt(p)) + '<br>' : '') + 'Cores: ' + esc(p.cores) + '</div>' +
       '<div class="price">' + esc(p.preco) + '</div>' + sel +
-      '<a class="btn" target="_blank" rel="noopener" href="' + waLink(msgFor(p, "")) + '">' + (p.esgotado ? 'Consultar disponibilidade' : 'Pedir no WhatsApp') + '</a>' +
+      '<a class="btn" target="_blank" rel="noopener noreferrer" href="' + waLink(msgFor(p, "")) + '">' + (p.esgotado ? 'Consultar disponibilidade' : 'Pedir no WhatsApp') + '</a>' +
       (p.esgotado ? '' : '<div class="row2"><button type="button" class="addbag" aria-label="Adicionar ' + esc(p.nome) + ' à sacola">' + BAG_ICON + 'Adicionar à sacola</button>' +
-        '<a class="share" target="_blank" rel="noopener" aria-label="Compartilhar ' + esc(p.nome) + ' no WhatsApp" href="' + shareLink(p) + '">' + SHARE_ICON + 'Compartilhar</a></div>') +
+        '<a class="share" target="_blank" rel="noopener noreferrer" aria-label="Compartilhar ' + esc(p.nome) + ' no WhatsApp" href="' + shareLink(p) + '">' + SHARE_ICON + 'Compartilhar</a></div>') +
       '</div></article>';
   });
   document.getElementById("grid").innerHTML = html || '<p class="none">Nenhuma peça encontrada. Tente outro tamanho ou categoria.</p>';
@@ -631,7 +663,7 @@ document.getElementById("fab").href = OLA;
 document.getElementById("fab").addEventListener("click", function(){ track("whatsapp_click", {peca: "botao_flutuante"}); });
 document.getElementById("topWa").addEventListener("click", function(){ track("whatsapp_click", {peca: "topo"}); });
 document.getElementById("topIg").href = IG_URL;
-document.getElementById("contact").innerHTML = esc(CONFIG.cidade) + ' · <a href="' + IG_URL + '" target="_blank" rel="noopener">' + esc(CONFIG.instagram) + '</a>';
+document.getElementById("contact").innerHTML = esc(CONFIG.cidade) + ' · <a href="' + esc(IG_URL) + '" target="_blank" rel="noopener noreferrer">' + esc(CONFIG.instagram) + '</a>';
 document.getElementById("foot").textContent = "© " + new Date().getFullYear() + " " + CONFIG.loja + ". Todos os direitos reservados.";
 /* menu */
 var burger = document.getElementById("burger"), menu = document.getElementById("menu");
@@ -660,7 +692,7 @@ document.addEventListener("keydown", function(e){
 });
 
 var N = CONFIG.whatsapp, FONE = "(" + N.slice(2, 4) + ") " + N.slice(4, 9) + "-" + N.slice(9);
-document.getElementById("contact").innerHTML = esc(CONFIG.cidade) + '<br>WhatsApp: ' + FONE + ' · Instagram: <a href="' + IG_URL + '" target="_blank" rel="noopener">' + esc(CONFIG.instagram) + '</a>';
+document.getElementById("contact").innerHTML = esc(CONFIG.cidade) + '<br>WhatsApp: ' + FONE + ' · Instagram: <a href="' + esc(IG_URL) + '" target="_blank" rel="noopener noreferrer">' + esc(CONFIG.instagram) + '</a>';
 document.getElementById("aboutWa").href = OLA;
 document.getElementById("aboutWa").addEventListener("click", function(){ track("whatsapp_click", {peca: "contato"}); });
 /* filtro de tamanho */
@@ -677,7 +709,14 @@ var toastEl = document.getElementById("toast"), toastT = null, bagFrom = null;
 function loadBag(){
   try{
     var v = JSON.parse(localStorage.getItem("mq_sacola") || "[]");
-    return Array.isArray(v) ? v.filter(function(x){ var p = x && byId(x.id); return p && !p.esgotado; }) : [];
+    if(!Array.isArray(v)) return [];
+    return v.slice(0, 50).filter(function(x){
+      if(!x || typeof x.id !== "number" || typeof x.cor !== "string" || typeof x.tam !== "string") return false;
+      var p = byId(x.id); if(!p || p.esgotado) return false;
+      var corOk = p.corOpc ? p.corOpc.indexOf(x.cor) !== -1 : x.cor === (p.cores || "");
+      var tamOk = fixedTam(p) ? x.tam === fixedTam(p) : (x.tam === "" || TAMANHOS[p.cat].indexOf(x.tam) !== -1);
+      return corOk && tamOk;
+    });
   }catch(err){ return []; }
 }
 function saveBag(){ try{ localStorage.setItem("mq_sacola", JSON.stringify(bag)); }catch(err){} }
@@ -789,6 +828,16 @@ document.querySelectorAll(".flinks a, .acc-link").forEach(function(a){
 });
 var idp = [CONFIG.razaoSocial, CONFIG.cnpj ? "CNPJ/CPF " + CONFIG.cnpj : "", CONFIG.endereco, CONFIG.email].filter(Boolean).join(" · ");
 if(idp){ var idEl = document.getElementById("ident"); idEl.textContent = idp; idEl.hidden = false; }
+/* vista no celular: 2 peças lado a lado ou 1 por vez */
+function vistaGet(){ try{ return localStorage.getItem("mq_vista"); }catch(err){ return null; } }
+function applyVista(v){
+  document.getElementById("grid").classList.toggle("um", v === "1");
+  document.querySelectorAll(".vbtn").forEach(function(b){ b.setAttribute("aria-pressed", b.getAttribute("data-v") === v ? "true" : "false"); });
+}
+document.querySelectorAll(".vbtn").forEach(function(b){
+  b.addEventListener("click", function(){ var v = b.getAttribute("data-v"); try{ localStorage.setItem("mq_vista", v); }catch(err){} applyVista(v); });
+});
+applyVista(vistaGet() === "1" ? "1" : "2");
 openAcc();
 renderBag();
 setCat("todos");
