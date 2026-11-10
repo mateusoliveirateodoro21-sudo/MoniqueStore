@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-sedA7qIWm9eUaYFoU7M5SGoWOUjh46AtJZu88KBv0jA=' 'sha256-zynqhCeeZy4/R56M66dbIro7M9Tjwaoft4kCAXo9y4U=' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; connect-src https://*.analytics.google.com https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-sedA7qIWm9eUaYFoU7M5SGoWOUjh46AtJZu88KBv0jA=' 'sha256-jv1F5jKqdq4AOha33dD7TQlDFB6iTy3juf296jtBZJs=' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; connect-src https://*.analytics.google.com https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-2LC7Z88XGG"></script>
 <script>
@@ -343,6 +343,27 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .snow i{position:absolute;top:-24px;font-style:normal;color:#a9c9ec;text-shadow:0 0 3px rgba(255,255,255,.9);will-change:transform;animation:neva linear infinite}
 @keyframes neva{from{transform:translate3d(0,0,0) rotate(0)}to{transform:translate3d(var(--dx),108vh,0) rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){.natal header::after{animation:none}.snow{display:none}}
+
+/* ===== roleta de Natal ===== */
+.rolbtn{position:fixed;left:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:20;display:inline-flex;align-items:center;gap:6px;min-height:48px;padding:0 18px;border:2px solid #f6e7b8;border-radius:999px;background:#b3122f;color:#fff;font:inherit;font-weight:700;font-size:.95rem;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+.rolbtn[hidden]{display:none}
+.natal .rolbtn{animation:pulsa 2.2s ease-in-out infinite}
+@keyframes pulsa{50%{transform:scale(1.06)}}
+.rolbtn:focus-visible,.rol-go:focus-visible,.rol-x:focus-visible{outline:3px solid #ffd25a;outline-offset:3px}
+.rol{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(30,6,16,.65)}
+.rol[hidden]{display:none}
+.rol-c{position:relative;width:100%;max-width:380px;max-height:96vh;overflow:auto;background:var(--surface);color:var(--text);border:3px solid #c9a24a;border-radius:22px;padding:22px 18px 20px;text-align:center}
+.rol-c h2{margin:0 24px 4px;font-family:"Cormorant Garamond","Cormorant",Garamond,Georgia,serif;font-size:1.7rem;line-height:1.1;color:#b3122f}
+.rol-s{margin:0;color:var(--muted);font-size:.92rem}
+.rol-x{position:absolute;right:8px;top:8px;width:44px;height:44px;border:0;border-radius:50%;background:transparent;color:var(--muted);font-size:1.1rem;cursor:pointer}
+.rol-w{position:relative;width:min(290px,70vw);aspect-ratio:1;margin:22px auto 14px}
+.rol-w canvas{display:block;width:100%;height:100%;border-radius:50%;box-shadow:0 0 0 6px #c9a24a,0 8px 20px rgba(0,0,0,.3);transition:transform 4.6s cubic-bezier(.12,.6,.1,1)}
+.rol-p{position:absolute;left:50%;top:-14px;transform:translateX(-50%);z-index:2;width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-top:28px solid #14502f;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))}
+.rol-go{min-height:48px;padding:0 34px;border:0;border-radius:999px;background:#b3122f;color:#fff;font:inherit;font-size:1.05rem;font-weight:700;cursor:pointer}
+.rol-go:disabled{opacity:.55;cursor:default}
+.rol-m{margin:14px 4px 0;min-height:3em;font-size:.95rem;line-height:1.4}
+.rol-m b{color:#b3122f}
+@media (prefers-reduced-motion:reduce){.natal .rolbtn{animation:none}.rol-w canvas{transition:none}}
 </style>
 </head>
 <body>
@@ -475,6 +496,17 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 </div></section>
 </main>
 
+<button type="button" class="rolbtn" id="rolBtn" hidden>🎁 Gire e ganhe</button>
+<div class="rol" id="rol" hidden role="dialog" aria-modal="true" aria-labelledby="rolT">
+  <div class="rol-c">
+    <button type="button" class="rol-x" id="rolX" aria-label="Fechar roleta">✕</button>
+    <h2 id="rolT">Roleta de Natal</h2>
+    <p class="rol-s">Gire e descubra seu presente!</p>
+    <div class="rol-w"><div class="rol-p" aria-hidden="true"></div><canvas id="rolCv" width="600" height="600" aria-hidden="true"></canvas></div>
+    <button type="button" class="rol-go" id="rolGo">Girar</button>
+    <p class="rol-m" id="rolMsg" role="status" aria-live="polite"></p>
+  </div>
+</div>
 <footer><div class="wrap">
   <nav class="flinks" aria-label="Informações da loja"><a href="#trocas">Trocas e devoluções</a><a href="#privacidade">Política de privacidade</a><a href="#medidas">Tabela de medidas</a><button type="button" class="linkbtn" id="cookiePref">Preferências de cookies</button></nav>
   <p class="ident" id="ident" hidden></p>
@@ -833,6 +865,119 @@ document.getElementById("sizes").addEventListener("click", function(e){
   document.body.appendChild(box);
 })();
 
+/* roleta de Natal */
+var NATAL_ON = document.documentElement.classList.contains("natal");
+var ROLETA = (CONFIG.roleta && CONFIG.roleta.length) ? CONFIG.roleta : [
+  /* peso = chances a cada 10 giros */
+  {id: "d5",     rot: "5% de desconto",           cur: "5% OFF",          tipo: "percent", valor: 5,  codigo: "NATAL5",      peso: 3,   cor: "#b3122f", txt: "#ffffff"},
+  {id: "d10",    rot: "10% de desconto",          cur: "10% OFF",         tipo: "percent", valor: 10, codigo: "NATAL10",     peso: 2,   cor: "#14502f", txt: "#ffffff"},
+  {id: "d15",    rot: "15% de desconto",          cur: "15% OFF",         tipo: "percent", valor: 15, codigo: "NATAL15",     peso: 0.5, cor: "#e6c35c", txt: "#3a0820"},
+  {id: "d20",    rot: "20% de desconto",          cur: "20% OFF",         tipo: "percent", valor: 20, codigo: "NATAL20",     peso: 0.5, cor: "#b3122f", txt: "#ffffff"},
+  {id: "brinde", rot: "Brinde Especial de Natal", cur: "Brinde de Natal", tipo: "brinde",             codigo: "BRINDENATAL", peso: 0,   cor: "#14502f", txt: "#ffffff"},
+  {id: "outra",  rot: "Tente outra vez",          cur: "Tente outra vez", tipo: "outra",                                      peso: 4,   cor: "#e6c35c", txt: "#3a0820"}
+];
+function roletaCupons(){
+  if(!NATAL_ON) return [];
+  return ROLETA.filter(function(p){ return p.codigo; }).map(function(p){ return {codigo: p.codigo, tipo: p.tipo, valor: p.valor || 0, validade: CONFIG.natalAte || ""}; });
+}
+(function(){
+  if(!NATAL_ON) return;
+  var btn = document.getElementById("rolBtn"), box = document.getElementById("rol"), cv = document.getElementById("rolCv"),
+      go = document.getElementById("rolGo"), msg = document.getElementById("rolMsg"), xb = document.getElementById("rolX");
+  var N = ROLETA.length, SL = 360 / N, cur = 0, busy = false, final = null, from = null;
+  var calm = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function fmt(d){ var p = String(d || "").split("-"); return p.length === 3 ? p[2] + "/" + p[1] + "/" + p[0] : ""; }
+  function lerFinal(){
+    try{
+      var v = JSON.parse(localStorage.getItem("mq_roleta") || "null");
+      if(v && typeof v.id === "string"){ for(var i = 0; i < N; i++){ if(ROLETA[i].id === v.id && ROLETA[i].tipo !== "outra") return i; } }
+    }catch(err){}
+    return -1;
+  }
+  function gravar(i){ try{ localStorage.setItem("mq_roleta", JSON.stringify({id: ROLETA[i].id})); }catch(err){} }
+  function desenha(){
+    var c = cv.getContext("2d"), S = cv.width, R = S / 2;
+    c.clearRect(0, 0, S, S);
+    for(var i = 0; i < N; i++){
+      var a0 = (i * SL - 90) * Math.PI / 180, a1 = ((i + 1) * SL - 90) * Math.PI / 180, p = ROLETA[i];
+      c.beginPath(); c.moveTo(R, R); c.arc(R, R, R, a0, a1); c.closePath(); c.fillStyle = p.cor; c.fill();
+      c.lineWidth = 4; c.strokeStyle = "#fff"; c.stroke();
+      c.save(); c.translate(R, R); c.rotate((i + 0.5) * SL * Math.PI / 180 - Math.PI / 2);
+      c.textAlign = "right"; c.textBaseline = "middle"; c.fillStyle = p.txt; c.font = "700 34px system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif";
+      var w = p.cur.split(" ");
+      if(w.length > 1 && p.cur.length > 8){ var m = Math.ceil(w.length / 2); c.fillText(w.slice(0, m).join(" "), R - 36, -19); c.fillText(w.slice(m).join(" "), R - 36, 19); }
+      else c.fillText(p.cur, R - 36, 0);
+      c.restore();
+    }
+    c.beginPath(); c.arc(R, R, 34, 0, Math.PI * 2); c.fillStyle = "#fff"; c.fill(); c.lineWidth = 6; c.strokeStyle = "#c9a24a"; c.stroke();
+  }
+  function sorteia(){
+    var t = 0, i; for(i = 0; i < N; i++) t += ROLETA[i].peso;
+    var r = crypto.getRandomValues(new Uint32Array(1))[0] / 4294967296 * t;
+    for(i = 0; i < N; i++){ r -= ROLETA[i].peso; if(r < 0) return i; }
+    return N - 1;
+  }
+  function msgPremio(i){
+    var p = ROLETA[i], v = fmt(CONFIG.natalAte), ate = v ? " Vale até " + v + "." : "";
+    if(p.id === "outra") return "Tente outra vez! Gire de novo.";
+    if(p.tipo === "nada") return p.id === "sorte" ? "<b>Você está sem sorte</b> desta vez. Obrigada por participar e feliz Natal!" : "<b>Nada</b> desta vez, mas o Natal está só começando. Feliz Natal!";
+    if(p.tipo === "brinde") return "🎁 Você ganhou um <b>Brinde Especial de Natal</b>! O cupom <b>" + p.codigo + "</b> já está na sua sacola. Informe no WhatsApp ao fechar o pedido." + ate;
+    return "🎉 Você ganhou <b>" + p.valor + "% de desconto</b>! O cupom <b>" + p.codigo + "</b> já está na sua sacola." + ate;
+  }
+  function mostra(i){ msg.innerHTML = msgPremio(i); }
+  function aplicaCupom(i){
+    var p = ROLETA[i];
+    if(p.codigo && !cupomAtivo){ cupomAtivo = p.codigo; cupomErr = ""; saveCupom(); renderBag(); }
+  }
+  function alvo(i, jit){
+    var base = (((-(i + 0.5) * SL + jit) % 360) + 360) % 360, d = (((base - cur % 360) % 360) + 360) % 360;
+    return d;
+  }
+  function estadoFinal(){
+    go.disabled = true; go.textContent = "Você já girou"; btn.textContent = "🎁 Meu prêmio";
+  }
+  function abre(){
+    from = document.activeElement; box.hidden = false; document.body.style.overflow = "hidden";
+    if(final === null) final = lerFinal();
+    if(final >= 0){
+      cv.style.transition = "none"; cur += alvo(final, 0); cv.style.transform = "rotate(" + cur + "deg)";
+      void cv.offsetWidth; cv.style.transition = ""; mostra(final); estadoFinal(); xb.focus();
+    } else { go.focus(); }
+  }
+  function fecha(){
+    if(busy) return;
+    box.hidden = true; document.body.style.overflow = ""; if(from && from.focus) from.focus(); else btn.focus();
+  }
+  function gira(){
+    if(busy || final >= 0) return;
+    busy = true; go.disabled = true; msg.textContent = "";
+    var i = sorteia(), jit = (Math.random() - 0.5) * SL * 0.6, d = alvo(i, jit) + 360 * 5;
+    cur += d;
+    if(calm) cv.style.transition = "none";
+    cv.style.transform = "rotate(" + cur + "deg)";
+    setTimeout(function(){
+      busy = false; mostra(i);
+      if(ROLETA[i].tipo === "outra"){ go.disabled = false; go.textContent = "Girar de novo"; go.focus(); return; }
+      final = i; gravar(i); aplicaCupom(i); estadoFinal(); xb.focus();
+    }, calm ? 80 : 4800);
+  }
+  desenha(); btn.hidden = false;
+  final = lerFinal(); if(final >= 0) btn.textContent = "🎁 Meu prêmio";
+  btn.addEventListener("click", abre); xb.addEventListener("click", fecha); go.addEventListener("click", gira);
+  box.addEventListener("click", function(e){ if(e.target === box) fecha(); });
+  document.addEventListener("keydown", function(e){
+    if(box.hidden) return;
+    if(e.key === "Escape"){ fecha(); return; }
+    if(e.key === "Tab"){
+      var f = [xb, go].filter(function(b){ return !b.disabled; });
+      if(!f.length) return;
+      var k = f.indexOf(document.activeElement);
+      if(e.shiftKey && k <= 0){ e.preventDefault(); f[f.length - 1].focus(); }
+      else if(!e.shiftKey && k === f.length - 1){ e.preventDefault(); f[0].focus(); }
+    }
+  });
+})();
+
 /* busca */
 var qIn = document.getElementById("q"), qClr = document.getElementById("qClear"), qT = null;
 function aplicaBusca(){ rawQ = qIn.value.replace(/\s+/g, " ").trim(); curQ = norm(rawQ); qClr.hidden = !qIn.value; render(curCat); }
@@ -891,12 +1036,14 @@ function hoje(){ var d = new Date(); return d.getFullYear() + "-" + ("0" + (d.ge
 /* cupom: ok = vale desconto agora; pend = código registrado, conferido no atendimento (quando a lista cupons está vazia) */
 function cupomCalc(code, sub){
   if(!code) return {ok: false, pend: false, desc: 0, msg: ""};
-  var L = CONFIG.cupons || [];
-  if(!L.length) return {ok: false, pend: true, desc: 0, msg: "Cupom " + code + " registrado. Ele será conferido no atendimento pelo WhatsApp."};
-  var c = null;
-  for(var i = 0; i < L.length; i++){ if(L[i].codigo === code){ c = L[i]; break; } }
-  if(!c) return {ok: false, pend: false, desc: 0, msg: "Cupom inválido."};
+  var L = CONFIG.cupons || [], A = roletaCupons().concat(L), c = null;
+  for(var i = 0; i < A.length; i++){ if(A[i].codigo === code){ c = A[i]; break; } }
+  if(!c){
+    if(!L.length) return {ok: false, pend: true, desc: 0, msg: "Cupom " + code + " registrado. Ele será conferido no atendimento pelo WhatsApp."};
+    return {ok: false, pend: false, desc: 0, msg: "Cupom inválido."};
+  }
   if(c.validade && hoje() > c.validade) return {ok: false, pend: false, desc: 0, msg: "Esse cupom expirou."};
+  if(c.tipo === "brinde") return {ok: true, pend: false, desc: 0, msg: "Cupom " + code + " aplicado: você ganhou um Brinde Especial de Natal!"};
   if(sub === null) return {ok: false, pend: false, desc: 0, msg: "Não foi possível calcular o desconto. Informe o cupom no atendimento."};
   if(c.minimo && sub < c.minimo) return {ok: false, pend: false, desc: 0, msg: "Esse cupom vale para compras a partir de " + reais(c.minimo) + "."};
   var d = c.tipo === "percent" ? sub * c.valor / 100 : c.valor;
@@ -913,8 +1060,8 @@ function bagMsg(){
   var t = bagTotal();
   if(t !== null){
     var cc = cupomCalc(cupomAtivo, t);
-    if(cc.ok){ l.push("", "Subtotal: " + reais(t), "Cupom " + cupomAtivo + ": -" + reais(cc.desc), "Total: " + reais(t - cc.desc)); }
-    else { l.push("", "Total: " + reais(t)); if(cc.pend) l.push("Cupom informado: " + cupomAtivo + " (a conferir)"); }
+    if(cc.ok && cc.desc > 0){ l.push("", "Subtotal: " + reais(t), "Cupom " + cupomAtivo + ": -" + reais(cc.desc), "Total: " + reais(t - cc.desc)); }
+    else { l.push("", "Total: " + reais(t)); if(cc.pend || cc.ok) l.push("Cupom informado: " + cupomAtivo + (cc.ok ? " (brinde de Natal, a conferir)" : " (a conferir)")); }
   } else if(cupomAtivo){ l.push("", "Cupom informado: " + cupomAtivo + " (a conferir)"); }
   l.push("", "Pode confirmar a disponibilidade e a forma de pagamento?");
   return l.join("\n");
@@ -940,8 +1087,8 @@ function renderBag(){
   document.getElementById("bagFoot").hidden = n === 0;
   var t = bagTotal(), cc = cupomCalc(cupomAtivo, t), tot = t === null ? null : t - (cc.ok ? cc.desc : 0);
   document.getElementById("bagTot").hidden = t === null;
-  document.getElementById("linSub").hidden = !(t !== null && cc.ok);
-  document.getElementById("linDesc").hidden = !(t !== null && cc.ok);
+  document.getElementById("linSub").hidden = !(t !== null && cc.ok && cc.desc > 0);
+  document.getElementById("linDesc").hidden = !(t !== null && cc.ok && cc.desc > 0);
   if(t !== null){
     document.getElementById("linSubV").textContent = reais(t);
     document.getElementById("linCod").textContent = cupomAtivo;
