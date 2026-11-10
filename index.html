@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-sedA7qIWm9eUaYFoU7M5SGoWOUjh46AtJZu88KBv0jA=' 'sha256-jv1F5jKqdq4AOha33dD7TQlDFB6iTy3juf296jtBZJs=' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; connect-src https://*.analytics.google.com https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-sedA7qIWm9eUaYFoU7M5SGoWOUjh46AtJZu88KBv0jA=' 'sha256-lQGOKxtQ1ulpsOC+jQwbYsXWTzaibGkGxeoudhZAWWc=' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; connect-src https://*.analytics.google.com https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-2LC7Z88XGG"></script>
 <script>
@@ -364,9 +364,31 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .rol-m{margin:14px 4px 0;min-height:3em;font-size:.95rem;line-height:1.4}
 .rol-m b{color:#b3122f}
 @media (prefers-reduced-motion:reduce){.natal .rolbtn{animation:none}.rol-w canvas{transition:none}}
+
+/* ===== tema Black Friday (classe .bf no <html>) ===== */
+.bfbar{display:none}
+.bf .bfbar{display:block;background:#ffd400;color:#111;text-align:center;font-size:.82rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:8px 14px}
+:root.bf{color-scheme:dark;--bg:#0b0b0b;--surface:#171717;--text:#f5f5f5;--muted:#b9b9b9;--accent:#ffd400;--accent-text:#111111;--border:#333333;--wa:#2bc26a;--wa-text:#06210f;--hdr:#000000;--hdr-text:#ffd400}
+.bf header::after{content:"";position:absolute;left:0;right:0;top:100%;height:8px;pointer-events:none;z-index:0;background:repeating-linear-gradient(-45deg,#ffd400 0 12px,#000 12px 24px)}
+.bf .kicker{display:inline-block;margin:0 0 14px;padding:6px 16px;border-radius:4px;background:#ffd400;color:#111;font-size:.85rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase}
+.bf .hero h1 em{color:#ffd400}
+.hero p.bf-msg{display:none;margin-top:10px;font-weight:700;color:#ffd400}
+.bf .hero p.bf-msg{display:block}
+.bf .cupom-m.ok{color:#5ee08f}
+.bf .cupom-m.err{color:#ff8a8a}
+.bf .card{border-color:#2a2a2a}
+.bf .tab[aria-pressed="true"],.bf .filtros .tab[aria-pressed="true"]{background:#ffd400;color:#111;border-color:#ffd400}
+.bf .chip[aria-pressed="true"]{background:#ffd400;color:#111;border-color:#ffd400}
+
+.price.promo{display:flex;flex-direction:column;gap:2px}
+.price .old{font-size:.82rem;font-weight:400;color:var(--muted)}
+.price .off{display:inline-block;margin-left:6px;padding:1px 6px;border-radius:4px;background:#ffd400;color:#111;font-size:.7rem;font-weight:800;vertical-align:middle}
+.bfnote{margin:0;font-size:.82rem;font-weight:700;color:var(--accent)}
+.bfnote[hidden]{display:none}
 </style>
 </head>
 <body>
+<div class="bfbar" id="bfBar" role="note">★ Black Friday Monique Store · Ofertas por tempo limitado ★</div>
 <div class="natalbar" role="note">🎄 <b>Natal na Monique Store</b> · Presenteie com lingerie e moda fitness 🎁</div>
 <header id="topo">
   <div class="wrap top">
@@ -392,6 +414,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <h1>Moda fitness <em>e</em> lingerie<span class="loc">em Franca e região</span></h1>
     <span class="orn" aria-hidden="true"></span>
     <p>Escolha a peça que gostou e peça direto pelo WhatsApp. Atendimento rápido e personalizado.</p>
+    <p class="bf-msg" id="bfMsg">A Black Friday chegou! Escolha sua peça e peça pelo WhatsApp.</p>
     <p class="natal-msg">Encontre o presente de Natal perfeito, para ela ou para você.</p>
   </section>
 
@@ -524,6 +547,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <p class="bag-empty" id="bagEmpty">Sua sacola está vazia. Toque em “Adicionar à sacola” nas peças que você gostar.</p>
     <ul class="bag-list" id="bagList"></ul>
     <div class="bag-f" id="bagFoot" hidden>
+      <p class="bfnote" id="bfNote" hidden></p>
       <div class="cupom">
         <label for="cupomIn">Cupom de desconto</label>
         <div class="cupom-r"><input id="cupomIn" type="text" maxlength="20" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Digite seu cupom"><button type="button" id="cupomBtn">Aplicar</button></div>
@@ -560,7 +584,8 @@ var CONFIG = {
   instagram: "@use_moniquestore",
   site: "https://usemoniquestore.com.br/",
   razaoSocial: "", cnpj: "", endereco: "", email: "", /* identificação da loja: aparece no rodapé quando preenchida */
-  natal: true, natalAte: "2026-12-27", /* tema de Natal: troque natal para false para desligar; some sozinho depois da data */
+  blackFriday: true, blackFridayAte: "2026-11-30", promoPct: 10, /* promoPct: % de desconto automático em todas as peças durante a Black Friday (0 = sem desconto) */ /* tema Black Friday: troque para false para desligar; some sozinho depois da data */
+  natal: true, natalDe: "2026-12-01", natalAte: "2026-12-27", /* tema de Natal: só começa em natalDe (depois da Black Friday) */
   cupons: [] /* lista de cupons: {codigo:"VOLTA10", tipo:"percent", valor:10, minimo:0, validade:"2026-12-31"}; vazia = qualquer cupom é só registrado e conferido no WhatsApp */,
   analyticsId: "" /* ex.: G-XXXXXXXXXX (Google Analytics) */
 };
@@ -640,7 +665,7 @@ function imgsHtml(p){
 var SHARE_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="6" r="2.6"/><circle cx="18" cy="18" r="2.6"/><path d="M8.3 10.8l7.4-3.6M8.3 13.2l7.4 3.6"/></svg>';
 function shareLink(p){
   var txt = "Olha essa peça da " + CONFIG.loja + ": " + p.nome + (p.ref ? " (ref. " + p.ref + ")" : "") +
-    (/^R\$/.test(p.preco) ? " por " + p.preco : "") + "\n" + CONFIG.site + "#peca-" + p.id;
+    (/^R\$/.test(p.preco) ? " por " + precoTxt(p) + (promoPct() ? " (Black Friday: " + promoPct() + "% de desconto)" : "") : "") + "\n" + CONFIG.site + "#peca-" + p.id;
   return "https://wa.me/?text=" + encodeURIComponent(txt);
 }
 function fixedTam(p){ return p.soTam || (p.unico ? p.tam : ""); }
@@ -670,7 +695,7 @@ function corEsg(p, cor){ return !!(cor && p.corEsg && p.corEsg.indexOf(cor) !== 
 function msgFor(p, tam, cor){
   if(corEsg(p, cor)) return "Olá! Vi a peça " + p.nome + (p.ref ? " (ref. " + p.ref + ")" : "") + " na cor " + cor + " no site e ela aparece como esgotada. Tem previsão de chegar?";
   if(p.esgotado) return "Olá! Vi a peça " + p.nome + " no site e ela aparece como esgotada. Tem previsão de chegar ou outra opção parecida?";
-  return "Olá! Tenho interesse na peça: " + p.nome + (p.ref ? " (ref. " + p.ref + ")" : "") + " (cor: " + (cor || p.cores) + ")" + ((fixedTam(p) || tam) ? ", tamanho: " + (fixedTam(p) || tam) : "") + ". Pode me passar mais informações?";
+  return "Olá! Tenho interesse na peça: " + p.nome + (p.ref ? " (ref. " + p.ref + ")" : "") + " (cor: " + (cor || p.cores) + ")" + ((fixedTam(p) || tam) ? ", tamanho: " + (fixedTam(p) || tam) : "") + (promoPct() ? ". Vi a promoção de Black Friday (" + promoPct() + "% de desconto)" : "") + ". Pode me passar mais informações?";
 }
 function byId(id){
   for(var i = 0; i < PRODUTOS.length; i++){ if(PRODUTOS[i].id === id) return PRODUTOS[i]; }
@@ -706,7 +731,7 @@ function render(cat){
       '<span class="tag">' + NOMES[p.cat] + '</span>' +
       '<h3>' + esc(p.nome) + '</h3>' +
       '<div class="meta">' + (p.ref ? 'Ref. ' + esc(p.ref) + '<br>' : '') + (tamTxt(p) ? esc(tamTxt(p)) + '<br>' : '') + 'Cores: ' + esc(p.cores) + '</div>' +
-      '<div class="price">' + esc(p.preco) + '</div>' + parcCard(p) + sel +
+      priceHtml(p) + parcCard(p) + sel +
       '<a class="btn" target="_blank" rel="noopener noreferrer" href="' + waLink(msgFor(p, "")) + '">' + (p.esgotado ? 'Consultar disponibilidade' : 'Pedir no WhatsApp') + '</a>' +
       (p.esgotado ? '' : '<div class="row2"><button type="button" class="addbag" aria-label="Adicionar ' + esc(p.nome) + ' à sacola">' + BAG_ICON + 'Adicionar à sacola</button>' +
         '<a class="share" target="_blank" rel="noopener noreferrer" aria-label="Compartilhar ' + esc(p.nome) + ' no WhatsApp" href="' + shareLink(p) + '">' + SHARE_ICON + 'Compartilhar</a></div>') +
@@ -843,9 +868,19 @@ document.getElementById("sizes").addEventListener("click", function(e){
   var again = document.querySelector('#sizes .chip[data-t="' + curTam + '"]'); if(again) again.focus();
 });
 
+/* tema Black Friday */
+var BF_ON = CONFIG.blackFriday !== false && (!CONFIG.blackFridayAte || hoje() <= CONFIG.blackFridayAte);
+if(BF_ON){
+  document.documentElement.classList.add("bf");
+  var kk = document.querySelector(".kicker"); if(kk) kk.textContent = "Black Friday";
+  if(promoPct()){
+    document.getElementById("bfBar").textContent = "★ Black Friday Monique Store · " + promoPct() + "% de desconto em todas as peças ★";
+    document.getElementById("bfMsg").textContent = "A Black Friday chegou! " + promoPct() + "% de desconto em todas as peças da loja.";
+  }
+}
 /* tema de Natal */
 (function(){
-  var on = CONFIG.natal !== false && (!CONFIG.natalAte || hoje() <= CONFIG.natalAte);
+  var on = !BF_ON && CONFIG.natal !== false && (!CONFIG.natalDe || hoje() >= CONFIG.natalDe) && (!CONFIG.natalAte || hoje() <= CONFIG.natalAte);
   if(!on) return;
   document.documentElement.classList.add("natal");
   var calm = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1022,14 +1057,28 @@ function precoNum(v){
   return m ? parseFloat(m[1].replace(/\./g, "") + "." + m[2]) : null;
 }
 function reais(n){ return "R$ " + n.toLocaleString("pt-BR", {minimumFractionDigits: 2, maximumFractionDigits: 2}); }
-function parcCard(p){
+
+function promoPct(){
+  return (CONFIG.blackFriday !== false && (!CONFIG.blackFridayAte || hoje() <= CONFIG.blackFridayAte) && CONFIG.promoPct > 0 && CONFIG.promoPct < 100) ? CONFIG.promoPct : 0;
+}
+function precoAtual(p){
+  var n = precoNum(p.preco), pc = promoPct();
+  return (n === null || !pc) ? n : Math.round(n * 100 * (100 - pc) / 100) / 100;
+}
+function precoTxt(p){ var n = precoAtual(p); return n === null ? p.preco : reais(n); }
+function priceHtml(p){
   var n = precoNum(p.preco);
+  if(n === null || !promoPct()) return '<div class="price">' + esc(p.preco) + '</div>';
+  return '<div class="price promo"><span class="old"><s>' + esc(p.preco) + '</s><span class="off">-' + promoPct() + '%</span></span><span>' + esc(reais(precoAtual(p))) + '</span></div>';
+}
+function parcCard(p){
+  var n = precoAtual(p);
   return n === null ? "" : '<div class="parc3">até 3x de ' + reais(n / 3) + ' sem juros</div>';
 }
 function bagUnits(){ var u = 0; bag.forEach(function(it){ u += it.qtd; }); return u; }
 function bagTotal(){
   var t = 0;
-  for(var i = 0; i < bag.length; i++){ var n = precoNum(byId(bag[i].id).preco); if(n === null) return null; t += n * bag[i].qtd; }
+  for(var i = 0; i < bag.length; i++){ var n = precoAtual(byId(bag[i].id)); if(n === null) return null; t += n * bag[i].qtd; }
   return Math.round(t * 100) / 100;
 }
 function hoje(){ var d = new Date(); return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2); }
@@ -1053,8 +1102,8 @@ function cupomCalc(code, sub){
 function bagMsg(){
   var l = ["Olá! Quero fazer um pedido pelo site:", ""];
   bag.forEach(function(it, i){
-    var p = byId(it.id), n = precoNum(p.preco);
-    var val = p.preco ? (it.qtd > 1 && n !== null ? it.qtd + " un. x " + p.preco + " = " + reais(n * it.qtd) : p.preco) : "";
+    var p = byId(it.id), n = precoAtual(p);
+    var val = p.preco ? (it.qtd > 1 && n !== null ? it.qtd + " un. x " + precoTxt(p) + " = " + reais(n * it.qtd) : precoTxt(p)) : "";
     l.push((i + 1) + ") " + p.nome + (p.ref ? " (ref. " + p.ref + ")" : "") + " | cor: " + it.cor + (it.tam ? " | tamanho: " + it.tam : "") + (val ? " | " + val : "") + (it.qtd > 1 && !val ? " | qtd: " + it.qtd : ""));
   });
   var t = bagTotal();
@@ -1063,6 +1112,7 @@ function bagMsg(){
     if(cc.ok && cc.desc > 0){ l.push("", "Subtotal: " + reais(t), "Cupom " + cupomAtivo + ": -" + reais(cc.desc), "Total: " + reais(t - cc.desc)); }
     else { l.push("", "Total: " + reais(t)); if(cc.pend || cc.ok) l.push("Cupom informado: " + cupomAtivo + (cc.ok ? " (brinde de Natal, a conferir)" : " (a conferir)")); }
   } else if(cupomAtivo){ l.push("", "Cupom informado: " + cupomAtivo + " (a conferir)"); }
+  if(promoPct()) l.push("", "Promoção Black Friday: " + promoPct() + "% de desconto em todas as peças (já nos valores acima).");
   l.push("", "Pode confirmar a disponibilidade e a forma de pagamento?");
   return l.join("\n");
 }
@@ -1072,10 +1122,10 @@ function renderBag(){
   bagBtn.setAttribute("aria-label", "Abrir sacola, " + n + (n === 1 ? " item" : " itens"));
   var h = "";
   bag.forEach(function(it, i){
-    var p = byId(it.id), k = (p.corImg && p.corImg[it.cor] !== undefined) ? p.corImg[it.cor] : 0, pn = precoNum(p.preco);
+    var p = byId(it.id), k = (p.corImg && p.corImg[it.cor] !== undefined) ? p.corImg[it.cor] : 0, pn = precoAtual(p);
     var sub = (it.qtd > 1 && pn !== null) ? ' · ' + it.qtd + ' un. = ' + reais(pn * it.qtd) : '';
     h += '<li class="bi"><img src="' + esc((p.imgs || [p.img])[k]) + '" alt=""><div class="bt"><b>' + esc(p.nome) + '</b><span>' +
-      (p.ref ? 'Ref. ' + esc(p.ref) + ' · ' : '') + 'Cor: ' + esc(it.cor) + (it.tam ? ' · Tamanho: ' + esc(it.tam) : '') + '</span><span class="bp">' + esc(p.preco) + esc(sub) + '</span>' +
+      (p.ref ? 'Ref. ' + esc(p.ref) + ' · ' : '') + 'Cor: ' + esc(it.cor) + (it.tam ? ' · Tamanho: ' + esc(it.tam) : '') + '</span><span class="bp">' + esc(precoTxt(p)) + esc(sub) + '</span>' +
       '<div class="qty" role="group" aria-label="Quantidade de ' + esc(p.nome) + '">' +
       '<button type="button" class="qb" data-i="' + i + '" data-d="-1" aria-label="Diminuir quantidade"' + (it.qtd <= 1 ? ' disabled' : '') + '>−</button>' +
       '<span class="qn" aria-live="polite">' + it.qtd + '</span>' +
@@ -1095,6 +1145,7 @@ function renderBag(){
     document.getElementById("linDescV").textContent = "− " + reais(cc.desc);
     document.getElementById("bagTotV").textContent = reais(tot);
   }
+  var bn = document.getElementById("bfNote"); bn.hidden = !promoPct(); if(promoPct()) bn.textContent = "Black Friday: preços já com " + promoPct() + "% de desconto.";
   var pb = document.getElementById("parcB");
   pb.hidden = t === null; if(t !== null) pb.textContent = "ou até 3x de " + reais(tot / 3) + " sem juros no cartão de crédito";
   var ci = document.getElementById("cupomIn"), cb = document.getElementById("cupomBtn"), cm = document.getElementById("cupomMsg");
