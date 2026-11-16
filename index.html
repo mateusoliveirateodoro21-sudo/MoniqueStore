@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-sedA7qIWm9eUaYFoU7M5SGoWOUjh46AtJZu88KBv0jA=' 'sha256-FFLbmoPs5LT1eKMAD5z2cOamWt0DQSaYHyYFt6h22kY=' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; connect-src https://*.analytics.google.com https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-sedA7qIWm9eUaYFoU7M5SGoWOUjh46AtJZu88KBv0jA=' 'sha256-SriBNd9v1c4L02gupPCvPDE/+d4902ghifWUnxl3EWg=' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; connect-src https://*.analytics.google.com https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-2LC7Z88XGG"></script>
 <script>
@@ -567,7 +567,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <div class="sizes" id="sizes" role="group" aria-label="Filtrar por tamanho"></div>
       <button type="button" class="limpar" id="limpar" hidden>Limpar filtros</button>
     </div>
-    <div class="viewbar"><p class="count" id="count" aria-live="polite"></p><div class="vtog" role="group" aria-label="Quantas peças por linha"><button type="button" class="vbtn" data-v="2" aria-pressed="true" aria-label="Duas peças lado a lado"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4" width="7" height="16" rx="1.5"/><rect x="13.5" y="4" width="7" height="16" rx="1.5"/></svg></button><button type="button" class="vbtn" data-v="1" aria-pressed="false" aria-label="Uma peça por vez"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="5.5" y="4" width="13" height="16" rx="1.5"/></svg></button></div></div>
+    <div class="viewbar"><p class="count" id="count" aria-live="polite"></p></div>
     <div class="grid" id="grid"></div>
   </div>
 
@@ -1560,7 +1560,7 @@ function applyVista(v){
 document.querySelectorAll(".vbtn").forEach(function(b){
   b.addEventListener("click", function(){ var v = b.getAttribute("data-v"); try{ localStorage.setItem("mq_vista", v); }catch(err){} applyVista(v); });
 });
-applyVista(vistaGet() === "1" ? "1" : "2");
+applyVista("2"); try{ localStorage.removeItem("mq_vista"); }catch(err){}
 openAcc();
 renderBag();
 setCat("todos");
