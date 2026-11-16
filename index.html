@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-sedA7qIWm9eUaYFoU7M5SGoWOUjh46AtJZu88KBv0jA=' 'sha256-OVzVMWuJaQ/h/kjIN6lrQaQppeyCNiu1asiAD1kRoMY=' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; connect-src https://*.analytics.google.com https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-sedA7qIWm9eUaYFoU7M5SGoWOUjh46AtJZu88KBv0jA=' 'sha256-uMeaxC5zi8o5qxEjznrltE2ewU0u0b45DkCuWqVt7so=' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; connect-src https://*.analytics.google.com https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-2LC7Z88XGG"></script>
 <script>
@@ -556,7 +556,6 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
         <button type="button" id="qClear" aria-label="Limpar busca" hidden>✕</button>
       </div>
       <div class="tabs" role="group" aria-label="Filtrar por categoria">
-      <button class="tab" data-cat="todos" aria-pressed="true">Todos</button>
       <button class="tab" data-cat="fitness" aria-pressed="false">Fitness</button>
       <button class="tab" data-cat="lingerie" aria-pressed="false">Lingerie</button>
       <button class="tab" data-cat="calcinhas" aria-pressed="false">Calcinhas</button>
@@ -980,7 +979,7 @@ lb.addEventListener("touchend", function(e){
 }, {passive:true});
 
 document.querySelectorAll(".tab").forEach(function(b){
-  b.addEventListener("click", function(){ setCat(b.getAttribute("data-cat")); });
+  b.addEventListener("click", function(){ var c = b.getAttribute("data-cat"); setCat(b.getAttribute("aria-pressed") === "true" ? "todos" : c); });
 });
 
 var OLA = waLink("Olá! Vi o catálogo no site e gostaria de atendimento.");
