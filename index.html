@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-sedA7qIWm9eUaYFoU7M5SGoWOUjh46AtJZu88KBv0jA=' 'sha256-ebLyhIfq8JmyC1vJtT14aqZGdZGBXqsr62c+IJr8kGs=' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; connect-src https://*.analytics.google.com https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-sedA7qIWm9eUaYFoU7M5SGoWOUjh46AtJZu88KBv0jA=' 'sha256-NJMdbU32qkZIsrnvuiVVr4XkNyldCslG5Fs1+zEs8SQ=' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; connect-src https://*.analytics.google.com https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-2LC7Z88XGG"></script>
 <script>
@@ -936,12 +936,18 @@ function lbShow(){
   document.getElementById("lbPrev").hidden = lbList.length < 2;
   document.getElementById("lbNext").hidden = lbList.length < 2;
 }
+/* botão Voltar do celular fecha foto/sacola em vez de sair do site */
+function ovPush(n){ try{ history.pushState({ov: n}, ""); }catch(e){} }
+function ovBack(n){ try{ if(history.state && history.state.ov === n){ history.back(); return true; } }catch(e){} return false; }
 function openLb(p, from){
   lbList = p.imgs || [p.img]; lbI = +(from && from.getAttribute("data-i")) || 0; lbName = p.nome; lbFrom = from;
   lbShow(); lb.hidden = false; document.body.style.overflow = "hidden";
   document.getElementById("lbClose").focus();
+  ovPush("lb");
 }
-function closeLb(){
+function closeLb(){ if(!ovBack("lb")) hideLb(); }
+function hideLb(){
+  if(lb.hidden) return;
   lb.hidden = true; lbImg.removeAttribute("src"); document.body.style.overflow = "";
   if(lbFrom) lbFrom.focus();
 }
@@ -1435,11 +1441,15 @@ function addToBag(card){
 function openBag(){
   bagFrom = document.activeElement; renderBag(); bagEl.hidden = false; document.body.style.overflow = "hidden";
   document.getElementById("bagClose").focus();
+  ovPush("bag");
 }
-function closeBag(){
+function closeBag(){ if(!ovBack("bag")) hideBag(); }
+function hideBag(){
+  if(bagEl.hidden) return;
   bagEl.hidden = true; document.body.style.overflow = "";
   if(bagFrom && bagFrom.focus) bagFrom.focus();
 }
+window.addEventListener("popstate", function(){ if(!lb.hidden) hideLb(); if(!bagEl.hidden) hideBag(); });
 bagBtn.addEventListener("click", openBag);
 document.getElementById("bagClose").addEventListener("click", closeBag);
 bagEl.addEventListener("click", function(e){ if(e.target === bagEl) closeBag(); });
