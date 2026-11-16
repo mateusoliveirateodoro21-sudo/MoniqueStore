@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-sedA7qIWm9eUaYFoU7M5SGoWOUjh46AtJZu88KBv0jA=' 'sha256-q1FkE0+Hi+MP50YqfzAzkSv/dhmM29n1Hzw92w05oq4=' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; connect-src https://*.analytics.google.com https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-sedA7qIWm9eUaYFoU7M5SGoWOUjh46AtJZu88KBv0jA=' 'sha256-O7D9Xj6/2RunkJOQIe3Zt3bwUbp/ACv+Gc7/T9rHnNM=' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; connect-src https://*.analytics.google.com https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-2LC7Z88XGG"></script>
 <script>
@@ -867,7 +867,7 @@ function render(cat){
       '<div class="info">' +
       '<span class="tag">' + NOMES[p.cat] + '</span>' +
       '<h3>' + esc(p.nome) + '</h3>' +
-      '<div class="meta">' + (p.ref ? 'Ref. ' + esc(p.ref) + '<br>' : '') + (tamTxt(p) ? esc(tamTxt(p)) + '<br>' : '') + 'Cores: ' + esc(p.cores) + '</div>' +
+      '<div class="meta">' + (p.ref ? 'Ref. ' + esc(p.ref) + '<br>' : '') + (tamTxt(p) ? esc(tamTxt(p)) : '') + ((p.corOpc && !p.esgotado) ? '' : (tamTxt(p) ? '<br>' : '') + 'Cores: ' + esc(p.cores)) + '</div>' +
       priceHtml(p) + parcCard(p) + sel +
       '<a class="btn" target="_blank" rel="noopener noreferrer" href="' + waLink(msgFor(p, "")) + '">' + (p.esgotado ? 'Consultar disponibilidade' : 'Pedir no WhatsApp') + '</a>' +
       (p.esgotado ? '' : '<div class="row2"><button type="button" class="addbag" aria-label="Adicionar ' + esc(p.nome) + ' à sacola">' + BAG_ICON + 'Adicionar à sacola</button>' +
