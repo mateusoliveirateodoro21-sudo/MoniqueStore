@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-sedA7qIWm9eUaYFoU7M5SGoWOUjh46AtJZu88KBv0jA=' 'sha256-HsNvj4zoSyJ6OsvWOYOzXFovsGXsyQGszbCHrYBEy2Q=' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; connect-src https://*.analytics.google.com https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-sedA7qIWm9eUaYFoU7M5SGoWOUjh46AtJZu88KBv0jA=' 'sha256-ebLyhIfq8JmyC1vJtT14aqZGdZGBXqsr62c+IJr8kGs=' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; connect-src https://*.analytics.google.com https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-2LC7Z88XGG"></script>
 <script>
@@ -857,17 +857,21 @@ function render(cat){
       sel = '<label class="sz"><span>Tamanho</span><select class="selTam" aria-label="Tamanho de ' + esc(p.nome) + '"><option value="">Escolha</option>' +
         tamsDe(p, "").map(function(t){ return '<option>' + esc(t) + '</option>'; }).join("") + '</select></label>' +
         (p.cat === "lingerie" ? '<a class="medlink" href="#medidas">Ver tabela de medidas</a>' : '');
+    } else if(!p.esgotado){
+      sel = '<label class="sz"><span>Tamanho</span><select class="selTam" aria-label="Tamanho de ' + esc(p.nome) + '"><option value="' + esc(fixedTam(p)) + '">' + esc(fixedTam(p)) + '</option></select></label>' +
+        (p.cat === "lingerie" ? '<a class="medlink" href="#medidas">Ver tabela de medidas</a>' : '');
     }
-    if(!p.esgotado && p.corOpc){
-      sel = '<label class="sz"><span>Cor</span><select class="selCor" aria-label="Cor de ' + esc(p.nome) + '"><option value="">Escolha</option>' +
-        p.corOpc.map(function(c){ return '<option value="' + esc(c) + '">' + esc(c) + (corEsg(p, c) ? ' (esgotada)' : '') + '</option>'; }).join("") + '</select></label>' + sel;
+    if(!p.esgotado){
+      var cl = p.corOpc || [p.cores];
+      sel = '<label class="sz"><span>Cor</span><select class="selCor" aria-label="Cor de ' + esc(p.nome) + '">' + (cl.length > 1 ? '<option value="">Escolha</option>' : '') +
+        cl.map(function(c){ return '<option value="' + esc(c) + '">' + esc(c) + (corEsg(p, c) ? ' (esgotada)' : '') + '</option>'; }).join("") + '</select></label>' + sel;
     }
     html += '<article class="card" id="peca-' + p.id + '" data-id="' + p.id + '">' +
       '<div class="ph" role="button" tabindex="0" aria-label="Ampliar fotos de ' + esc(p.nome) + '"><span>' + ICONES[p.cat] + '</span>' + imgsHtml(p) + (p.esgotado ? '<span class="soldout">Esgotado</span>' : (p.novo ? '<span class="new">Novidade</span>' : '')) + '</div>' +
       '<div class="info">' +
       '<span class="tag">' + NOMES[p.cat] + '</span>' +
       '<h3>' + esc(p.nome) + '</h3>' +
-      '<div class="meta">' + (p.ref ? 'Ref. ' + esc(p.ref) + '<br>' : '') + (tamTxt(p) ? esc(tamTxt(p)) : '') + ((p.corOpc && !p.esgotado) ? '' : (tamTxt(p) ? '<br>' : '') + 'Cores: ' + esc(p.cores)) + '</div>' +
+      (p.ref ? '<div class="meta">Ref. ' + esc(p.ref) + '</div>' : '') +
       '<div class="pp">' + priceHtml(p) + parcCard(p) + '</div>' + sel +
       '<a class="btn" target="_blank" rel="noopener noreferrer" href="' + waLink(msgFor(p, "")) + '">' + (p.esgotado ? 'Consultar disponibilidade' : 'Pedir no WhatsApp') + '</a>' +
       (p.esgotado ? '' : '<div class="row2"><button type="button" class="addbag" aria-label="Adicionar ' + esc(p.nome) + ' à sacola">' + BAG_ICON + 'Adicionar à sacola</button>' +
