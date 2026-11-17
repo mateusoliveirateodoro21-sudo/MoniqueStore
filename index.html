@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-sedA7qIWm9eUaYFoU7M5SGoWOUjh46AtJZu88KBv0jA=' 'sha256-w8aPsyZPn+O6EUz8BXctA1ZORvvKMJnAf1PfKu3osNU=' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; connect-src https://*.analytics.google.com https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-sedA7qIWm9eUaYFoU7M5SGoWOUjh46AtJZu88KBv0jA=' 'sha256-jqlJOJVPlKsqpW2lMfL8hfF1j0BaaLZtws4cdir5Ass=' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; connect-src https://*.analytics.google.com https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-2LC7Z88XGG"></script>
 <script>
@@ -275,6 +275,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .acc-b ul{padding-left:20px;margin:4px 0}
 .acc-b b{color:var(--text)}
 .acc-b .upd{font-size:.8rem;margin-top:16px}
+.avalie{text-align:center;margin:6px 0 10px}
+.avalie a{display:inline-block;color:var(--accent);font-weight:700;font-size:.95rem;text-decoration:none;border:1px solid var(--accent);border-radius:999px;padding:10px 18px;min-height:40px}
+.avalie a:hover{text-decoration:underline}
 .flinks{display:flex;flex-wrap:wrap;gap:2px 18px;justify-content:center;margin-bottom:8px}
 .flinks a,.linkbtn{color:var(--muted);font:inherit;font-size:.85rem;text-decoration:underline;background:none;border:0;padding:8px 4px;cursor:pointer;min-height:40px}
 .flinks a:focus-visible,.linkbtn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
@@ -671,6 +674,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 </div>
 <footer><div class="wrap">
   <nav class="flinks" aria-label="Informações da loja"><a href="#trocas">Trocas e devoluções</a><a href="#privacidade">Política de privacidade</a><a href="#medidas">Tabela de medidas</a><button type="button" class="linkbtn" id="cookiePref">Preferências de cookies</button></nav>
+  <p class="avalie" id="avalieP" hidden><a id="avaliar" target="_blank" rel="noopener noreferrer">⭐ Avalie a loja no Google</a></p>
   <p class="ident" id="ident" hidden></p>
   <p class="fretenota" id="freteNota" hidden></p>
   <p class="natal-f">🎄 Boas festas! A Monique Store deseja um Feliz Natal.</p>
@@ -725,6 +729,7 @@ var CONFIG = {
   cidade: "Atendimento em Franca e Região",
   instagram: "@use_moniquestore",
   site: "https://usemoniquestore.com.br/",
+  avaliar: "https://g.page/r/CTirRiXzAjF5EAI/review", /* link de avaliação do Google Meu Negócio */
   razaoSocial: "", cnpj: "", endereco: "", email: "", /* identificação da loja: aparece no rodapé quando preenchida */
   blackFriday: true, blackFridayAte: "2026-11-30", promoPct: 10, bfEstilo: "vinho", freteGratis: 0, banner: true, /* estilo da Black Friday: "vinho" (vinho e dourado), "classico" (preto e amarelo), "discreto" ou "elegante"; freteGratis = valor mínimo do frete grátis (0 desliga); banner = false esconde o banner */ /* promoPct: % de desconto automático em todas as peças durante a Black Friday (0 = sem desconto) */ /* tema Black Friday: troque para false para desligar; some sozinho depois da data */
   natal: true, natalDe: "2026-12-01", natalAte: "2026-12-27", /* tema de Natal: só começa em natalDe (depois da Black Friday) */
@@ -1562,6 +1567,7 @@ window.addEventListener("hashchange", openAcc);
 document.querySelectorAll(".flinks a, .acc-link").forEach(function(a){
   a.addEventListener("click", function(){ var d = document.getElementById(a.getAttribute("href").slice(1)); if(d && d.tagName === "DETAILS") d.open = true; });
 });
+if(CONFIG.avaliar){ var av = document.getElementById("avaliar"); av.href = CONFIG.avaliar; document.getElementById("avalieP").hidden = false; }
 var idp = [CONFIG.razaoSocial, CONFIG.cnpj ? "CNPJ/CPF " + CONFIG.cnpj : "", CONFIG.endereco, CONFIG.email].filter(Boolean).join(" · ");
 if(idp){ var idEl = document.getElementById("ident"); idEl.textContent = idp; idEl.hidden = false; }
 /* vista no celular: 2 peças lado a lado ou 1 por vez */
