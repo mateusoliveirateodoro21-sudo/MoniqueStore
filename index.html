@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-sedA7qIWm9eUaYFoU7M5SGoWOUjh46AtJZu88KBv0jA=' 'sha256-jqlJOJVPlKsqpW2lMfL8hfF1j0BaaLZtws4cdir5Ass=' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; connect-src https://*.analytics.google.com https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-sedA7qIWm9eUaYFoU7M5SGoWOUjh46AtJZu88KBv0jA=' 'sha256-jRCZkyK+8XnPrbkt/oXm3J3XchnQIFDVk/wrlMbMNuU=' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; connect-src https://*.analytics.google.com https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-2LC7Z88XGG"></script>
 <script>
@@ -278,6 +278,10 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .acc-b ul{padding-left:20px;margin:4px 0}
 .acc-b b{color:var(--text)}
 .acc-b .upd{font-size:.8rem;margin-top:16px}
+.av{text-align:center;max-width:620px}
+.about a.av-btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 28px;border-radius:999px;background:linear-gradient(180deg,#f4d6b4,#c98f6a);color:#2a0615;font-weight:700;text-decoration:none;border:1px solid #f1d0ae}
+.about a.av-btn:focus-visible{outline:3px solid #f4d6b4;outline-offset:3px}
+.av .av-stars{font-size:1.6rem;letter-spacing:.2em;color:#e3b894;margin:10px 0 14px}
 .avalie{text-align:center;margin:6px 0 10px}
 .avalie a{display:inline-block;color:var(--accent);font-weight:700;font-size:.95rem;text-decoration:none;border:1px solid var(--accent);border-radius:999px;padding:10px 18px;min-height:40px}
 .avalie a:hover{text-decoration:underline}
@@ -533,6 +537,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <a href="#catalogo" data-cat="masculino">Masculino</a>
       <a href="#medidas">Medidas</a>
       <a href="#como-comprar">Como comprar</a>
+      <a href="#avaliacoes" id="menuAv" hidden>Avaliações</a>
       <a href="#contato">Contato</a>
       <a class="pill" id="topIg" href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
       <a class="pill" id="topWa" href="#" target="_blank" rel="noopener noreferrer">WhatsApp</a>
@@ -613,6 +618,15 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <p id="contact"></p>
       <p><a class="btn cta" id="aboutWa" href="#" target="_blank" rel="noopener noreferrer">Chamar no WhatsApp</a></p>
     </div>
+  </div>
+</section>
+<section class="about" id="avaliacoes" hidden>
+  <div class="wrap av">
+    <p class="eyebrow">Sua opinião</p>
+    <h2 class="sec">Avaliações</h2>
+    <p>Comprou com a gente? Conte como foi. Sua avaliação ajuda outras clientes a conhecer a Monique Store.</p>
+    <p class="av-stars" aria-hidden="true">★★★★★</p>
+    <p><a class="av-btn" id="avaliarSec" href="#" target="_blank" rel="noopener noreferrer">Avaliar no Google</a></p>
   </div>
 </section>
 <section class="info" id="informacoes"><div class="wrap">
@@ -1570,7 +1584,7 @@ window.addEventListener("hashchange", openAcc);
 document.querySelectorAll(".flinks a, .acc-link").forEach(function(a){
   a.addEventListener("click", function(){ var d = document.getElementById(a.getAttribute("href").slice(1)); if(d && d.tagName === "DETAILS") d.open = true; });
 });
-if(CONFIG.avaliar){ var av = document.getElementById("avaliar"); av.href = CONFIG.avaliar; document.getElementById("avalieP").hidden = false; }
+if(CONFIG.avaliar){ var av = document.getElementById("avaliar"); av.href = CONFIG.avaliar; document.getElementById("avalieP").hidden = false; document.getElementById("avaliarSec").href = CONFIG.avaliar; document.getElementById("avaliacoes").hidden = false; document.getElementById("menuAv").hidden = false; }
 var idp = [CONFIG.razaoSocial, CONFIG.cnpj ? "CNPJ/CPF " + CONFIG.cnpj : "", CONFIG.endereco, CONFIG.email].filter(Boolean).join(" · ");
 if(idp){ var idEl = document.getElementById("ident"); idEl.textContent = idp; idEl.hidden = false; }
 /* vista no celular: 2 peças lado a lado ou 1 por vez */
