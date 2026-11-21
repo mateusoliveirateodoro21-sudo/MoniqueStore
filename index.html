@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-sedA7qIWm9eUaYFoU7M5SGoWOUjh46AtJZu88KBv0jA=' 'sha256-RMa+ZfyXB/48JJ21/rZpCt+sXcmiaA44mas7M/YNSAU=' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; connect-src https://*.analytics.google.com https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-sedA7qIWm9eUaYFoU7M5SGoWOUjh46AtJZu88KBv0jA=' 'sha256-rqqAcDkNTZa2S5M+PyQ4nnQAy8GDWpXhv8Y9D1VDRi4=' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; connect-src https://*.analytics.google.com https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-2LC7Z88XGG"></script>
 <script>
@@ -1601,7 +1601,14 @@ applyVista("2"); try{ localStorage.removeItem("mq_vista"); }catch(err){}
 openAcc();
 renderBag();
 setCat("todos");
+var CAT_LINK = ["calcinhas", "camisolas", "masculino", "fitness", "lingerie"];
 function goToPiece(){
+  var hc = location.hash.slice(1).toLowerCase();
+  if(CAT_LINK.indexOf(hc) !== -1){
+    curTam = ""; setCat(hc);
+    var cg = document.getElementById("catalogo"); if(cg) cg.scrollIntoView({block: "start"});
+    return;
+  }
   var m = /^#peca-(\d+)$/.exec(location.hash); if(!m) return;
   var idn = +m[1]; PRODUTOS.forEach(function(q){ if(q.ids && q.ids.indexOf(idn) !== -1) idn = q.id; });
   var el = document.getElementById("peca-" + idn);
