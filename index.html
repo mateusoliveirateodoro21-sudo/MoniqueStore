@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-sedA7qIWm9eUaYFoU7M5SGoWOUjh46AtJZu88KBv0jA=' 'sha256-rqqAcDkNTZa2S5M+PyQ4nnQAy8GDWpXhv8Y9D1VDRi4=' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; connect-src https://*.analytics.google.com https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-sedA7qIWm9eUaYFoU7M5SGoWOUjh46AtJZu88KBv0jA=' 'sha256-N10rTlIvNSljMCP+WShKpIx2StnV6s+68aFv8rHiy+o=' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; connect-src https://*.analytics.google.com https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-2LC7Z88XGG"></script>
 <script>
@@ -535,6 +535,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <a href="#catalogo" data-cat="lingerie">Lingerie</a>
       <a href="#catalogo" data-cat="calcinhas">Calcinhas</a>
       <a href="#catalogo" data-cat="camisolas">Camisolas</a>
+      <a href="#catalogo" data-cat="pijamas">Pijamas</a>
       <a href="#catalogo" data-cat="masculino">Masculino</a>
       <a href="#medidas">Medidas</a>
       <a href="#como-comprar">Como comprar</a>
@@ -579,6 +580,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <button class="tab" data-cat="lingerie" aria-pressed="false">Lingerie</button>
       <button class="tab" data-cat="calcinhas" aria-pressed="false">Calcinhas</button>
       <button class="tab" data-cat="camisolas" aria-pressed="false">Camisolas</button>
+      <button class="tab" data-cat="pijamas" aria-pressed="false">Pijamas</button>
       <button class="tab" data-cat="masculino" aria-pressed="false">Masculino</button>
     </div>
       <div class="sizes" id="sizes" role="group" aria-label="Filtrar por tamanho"></div>
@@ -793,6 +795,8 @@ var PRODUTOS = [
   { id:37, promo:20, cat:"lingerie", novo:true, soTam:"G", ref:"953", nome:"Conjunto Lingerie Bojo Verde Menta", desc:"Sutiã com bojo e detalhe em renda, calcinha lisa.", tam:"G", cores:"Verde Menta", preco:"R$ 99,90", imgs:["img/p37-0.webp"] },
   { id:38, calcinha:true, cat:"lingerie", novo:true, unico:true, ref:"052", nome:"Calcinha Fio Dental com Regulagem", desc:"Calcinha fio dental em renda, com regulagem nas laterais.", tam:"único", cores:"Branco / Preto / Rosa Pantera / Rosa Bebe / Te Quiero / Odalisca / Azul Marinho", corOpc:["Branco","Preto","Rosa Pantera","Rosa Bebe","Te Quiero","Odalisca","Azul Marinho"], corImg:{"Branco":0,"Preto":1,"Rosa Pantera":2,"Rosa Bebe":3,"Te Quiero":4,"Odalisca":5,"Azul Marinho":6}, preco:"R$ 18,00", imgs:["img/p38-0.webp","img/p38-1.webp","img/p38-2.webp","img/p38-3.webp","img/p38-4.webp","img/p38-5.webp","img/p38-6.webp"] },
   { id:39, calcinha:true, cat:"lingerie", novo:true, ref:"157", nome:"Calcinha Fio Duplo", desc:"Calcinha fio duplo. Os tamanhos disponíveis variam conforme a cor.", tam:"P / M / G / GG", cores:"Azul Bebê / Amarelo Claro / Chocolate / Branco / Nude / Rosa Lichia / Vermelho Rubi / Flame / Te Quiero / Rose", corOpc:["Azul Bebê", "Amarelo Claro", "Chocolate", "Branco", "Nude", "Rosa Lichia", "Vermelho Rubi", "Flame", "Te Quiero", "Rose"], corImg:{"Azul Bebê": 0, "Amarelo Claro": 1, "Chocolate": 2, "Branco": 2, "Nude": 2, "Rosa Lichia": 3, "Vermelho Rubi": 4, "Flame": 5, "Te Quiero": 6, "Rose": 7}, corTam:{"Azul Bebê": ["P", "M", "G", "GG"], "Amarelo Claro": ["G", "GG"], "Chocolate": ["P", "M", "G", "GG"], "Branco": ["P", "M", "G", "GG"], "Nude": ["P", "M", "G", "GG"], "Rosa Lichia": ["P", "GG"], "Vermelho Rubi": ["P", "GG"], "Flame": ["GG"], "Te Quiero": ["GG"], "Rose": ["GG"]}, preco:"R$ 20,00", imgs:["img/p39-0.webp","img/p39-1.webp","img/p39-2.webp","img/p39-3.webp","img/p39-4.webp","img/p39-5.webp","img/p39-6.webp","img/p39-7.webp"] },
+  { id:44, promo:30, cat:"pijamas", novo:true, nome:"Pijama Short Doll", desc:"Pijama de alcinha ou regata com short. Cada estampa tem um tamanho disponível.", tam:"P / M / G / GG", cores:"Margarida / Frajola e Piu-Piu / Be who you want / Cachorrinho / Ursinho / Gatinho de óculos / Unicórnio / Vaquinha / Não pare / Bicho-preguiça", corOpc:["Margarida", "Frajola e Piu-Piu", "Be who you want", "Cachorrinho", "Ursinho", "Gatinho de óculos", "Unicórnio", "Vaquinha", "Não pare", "Bicho-preguiça"], corImg:{"Margarida": 0, "Frajola e Piu-Piu": 1, "Be who you want": 2, "Cachorrinho": 3, "Ursinho": 3, "Gatinho de óculos": 4, "Unicórnio": 5, "Vaquinha": 6, "Não pare": 7, "Bicho-preguiça": 8}, corTam:{"Margarida": ["M"], "Frajola e Piu-Piu": ["M"], "Be who you want": ["G"], "Cachorrinho": ["G"], "Ursinho": ["GG"], "Gatinho de óculos": ["P"], "Unicórnio": ["G"], "Vaquinha": ["M"], "Não pare": ["M"], "Bicho-preguiça": ["M"]}, preco:"R$ 64,90", imgs:["img/p44-0.webp","img/p44-1.webp","img/p44-2.webp","img/p44-3.webp","img/p44-4.webp","img/p44-5.webp","img/p44-6.webp","img/p44-7.webp","img/p44-8.webp"] },
+
   { id:43, soTam:"GG", cat:"masculino", novo:true, ref:"048", nome:"Cueca Boxer Poliamida", desc:"Cueca boxer em poliamida.", tam:"GG", cores:"Vermelho/Preto / Preto/Vermelho / Chocolate / Azul Bic/Marinho / Alecrim / Azul Marinho / Azul Bic/Vermelho", corOpc:["Vermelho/Preto", "Preto/Vermelho", "Chocolate", "Azul Bic/Marinho", "Alecrim", "Azul Marinho", "Azul Bic/Vermelho"], corImg:{"Vermelho/Preto": 0, "Preto/Vermelho": 0, "Chocolate": 1, "Azul Bic/Marinho": 2, "Alecrim": 3, "Azul Marinho": 4, "Azul Bic/Vermelho": 5}, corTam:{"Vermelho/Preto": ["GG"], "Preto/Vermelho": ["GG"], "Chocolate": ["GG"], "Azul Bic/Marinho": ["GG"], "Alecrim": ["GG"], "Azul Marinho": ["GG"], "Azul Bic/Vermelho": ["GG"]}, preco:"R$ 27,78", imgs:["img/p43-0.webp","img/p43-1.webp","img/p43-2.webp","img/p43-3.webp","img/p43-4.webp","img/p43-5.webp"] },
 
   { id:42, camisola:true, cat:"lingerie", novo:true, soTam:"50", ref:"969", nome:"Camisola Renda Plus Size", desc:"Camisola com renda no busto, tamanho 50.", tam:"50", cores:"Rubi", corOpc:["Rubi"], corImg:{"Rubi":0}, preco:"R$ 104,90", imgs:["img/p42-0.webp","img/p42-1.webp"] },
@@ -805,8 +809,8 @@ var PRODUTOS = [
 ];
 /* ===== FIM DA CONFIGURAÇÃO ===== */
 
-var NOMES = { fitness:"Fitness", lingerie:"Lingerie", masculino:"Masculino" };
-var ICONES = { fitness:"🏋️", lingerie:"🎀", masculino:"🩲" };
+var NOMES = { fitness:"Fitness", lingerie:"Lingerie", masculino:"Masculino", pijamas:"Pijamas" };
+var ICONES = { fitness:"🏋️", lingerie:"🎀", masculino:"🩲", pijamas:"🌙" };
 
 function waLink(texto){
   return "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(texto);
@@ -817,7 +821,8 @@ function esc(s){
 var TAMANHOS = {
   fitness: ["38 ao 44", "44 ao 50"],
   lingerie: ["P (40)", "M (42)", "G (44)", "GG (46)", "48", "50", "52"],
-  masculino: ["P", "M", "G", "GG"]
+  masculino: ["P", "M", "G", "GG"],
+  pijamas: ["P", "M", "G", "GG"]
 };
 var IG_URL = "https://www.instagram.com/" + CONFIG.instagram.replace("@", "") + "/";
 
@@ -1601,7 +1606,7 @@ applyVista("2"); try{ localStorage.removeItem("mq_vista"); }catch(err){}
 openAcc();
 renderBag();
 setCat("todos");
-var CAT_LINK = ["calcinhas", "camisolas", "masculino", "fitness", "lingerie"];
+var CAT_LINK = ["calcinhas", "camisolas", "pijamas", "masculino", "fitness", "lingerie"];
 function goToPiece(){
   var hc = location.hash.slice(1).toLowerCase();
   if(CAT_LINK.indexOf(hc) !== -1){
